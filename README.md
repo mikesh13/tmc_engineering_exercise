@@ -17,4 +17,4 @@ If we want be more accurate, we can also use columns such as 'address', but it w
 
 Perhaps considering adding 'middle_name' to the match is a potentially good idea, what are the odds of two people having the exact same name, born in the same year, and actually live in the same zip code, right? Still, I think using the three columns mentioned above is enough unless we need to be extremely accurate whatever it takes.
 
-Next step for this repo is probably creating a docker container to specify the versions of the Python libraries, and Python itself so we can make sure to reproduce the same result in the future.
+Next step for this repo is probably develop test scripts to validate the functions and creating a docker container to specify the versions of the Python libraries, and Python itself so we can make sure to reproduce the same result in the future.
