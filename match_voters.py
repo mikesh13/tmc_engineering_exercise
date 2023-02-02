@@ -4,23 +4,27 @@ import os
 
 
 def transform_text(txt: str) -> str:
+    """
+    Takes a word and make it into title form
+    e.g. TAKE -> Take
+
+    :param txt: a string that needed to be transformed
+    :return: transformed string
+    """
     if txt == '':
         return None
-    
+
     return txt.title()
 
 
-def extract_middle_name(txt: str) -> str:
-    name = txt.split(" ")
-    if len(name) > 2:
-        return name[1]
-    else:
-        return ""
-
-
 def add_name_col(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Creates a new 'name' column with 'first_name' and 'last_name' columns
+
+    :param df: a pandas dataframe with 'first_name' and 'last_name' columns
+    :return: a pandas dataframe with a new 'name' column
+    """
     df['FIRST_NAME'] = df['FIRST_NAME'].transform(lambda x: transform_text(x))
-    # df['MIDDLE_NAME'] = df['MIDDLE_NAME'].transform(lambda x: transform_text(x))
     df['LAST_NAME'] = df['LAST_NAME'].transform(lambda x: transform_text(x))
     df['name'] = df[['FIRST_NAME', 'LAST_NAME']].agg(' '.join, axis=1)
 
@@ -28,6 +32,13 @@ def add_name_col(df: pd.DataFrame) -> pd.DataFrame:
 
 
 def extract_year(birth_date: str) -> str:
+    """
+    Takes a date string and extract and return the year part
+    e.g. 2023-02-02 -> 2023
+
+    :param birth_date: a date string that should look like '2023-02-02'
+    :return: a year string 
+    """
     if birth_date == np.nan or birth_date == '':
         return birth_date
     else:
@@ -36,6 +47,12 @@ def extract_year(birth_date: str) -> str:
 
 
 def transform_df(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Transform a pandas dataframe and prepares it for merge later
+
+    :param df: a pandas dataframe
+    :return: a tranformed pandas dataframe
+    """
     df = add_name_col(df)
     df['birth_year'] = (df.birth_year.apply(lambda x: extract_year(x)))
 
@@ -50,6 +67,11 @@ def transform_df(df: pd.DataFrame) -> pd.DataFrame:
 
 
 def merge_county_dfs():
+    """
+    Reads the all the input data into a single pandas dataframe
+
+    :return: a pandas dataframe with all the input data
+    """
     data_list = os.listdir('county_voter_data')
     data_list = ['county_voter_data/' + ele for ele in data_list]
 
@@ -72,6 +94,9 @@ def merge_county_dfs():
 
 
 def match_voters_with_voter_id():
+    """
+    Reads and transforms both input and target data then merge them
+    """
     county_df = merge_county_dfs()
     voter_df = pd.read_csv('matching_data/eng-matching-input-v3.csv').dropna()
 

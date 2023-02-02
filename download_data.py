@@ -1,6 +1,12 @@
 import cloudscraper
 
 def download_data(row_number: int):
+    """
+    Pull a voter file data from the Ohio Secretary of State website,
+    and save them.
+
+    :param row_number: which row to pull
+    """
     scraper = cloudscraper.create_scraper(
         browser={'browser': 'firefox', 'platform': 'windows', 'mobile': False})
     data_url = f'https://www6.ohiosos.gov/ords/f?p=VOTERFTP:DOWNLOAD::FILE:NO:2:P2_PRODUCT_NUMBER:{row_number}'
