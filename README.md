@@ -9,7 +9,7 @@ python main.py
 ```
 will download, merge, and save data
 
-The first challenge was to pull the data, the request library kept getting rejected by Cloudflare error, so I have to find alternative solution to pull the data, which is cloudscrape
+Pull the data was a challenge, the request library kept getting rejected by Cloudflare error, so I have to find an alternative solution to pull the data, which is cloudscrape
 
 As for how the data is match, I used three columns 'name', 'year', 'zip', which are, in my opinion, enough to distinguish between different registered owners with the same name.
 
