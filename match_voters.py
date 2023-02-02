@@ -81,6 +81,3 @@ def match_voters_with_voter_id():
     merged_df = pd.merge(county_df, voter_df, on=['name', 'birth_year', 'zip'],
                          how='inner')
     merged_df.to_csv('matched_data/matched_data.csv', index=False)
-
-
-match_voters_with_voter_id()
